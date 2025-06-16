@@ -1,22 +1,24 @@
 import { forwardRef } from 'react'
-import { Box, Input, Text, Flex } from '@chakra-ui/react'
+import { Box, Input, Text, Flex, InputProps } from '@chakra-ui/react'
 
-type FormFieldProps = {
+type CustomFormFieldProps = {
   label: string
   placeholder: string
-  type?: string
   gridArea?: { [key: string]: string }
-  errors: { message: string } | undefined
-  [prop: string]: unknown
+  errors?: { message?: string }
 }
 
-const FormField = forwardRef<HTMLInputElement, FormFieldProps>((props, ref) => {
-  const { label, placeholder, type = 'text', gridArea, ...other } = props
+type FormFieldProps = CustomFormFieldProps & InputProps
 
-  let errorMessage
-  if (props.errors) {
-    errorMessage = props.errors.message
-  }
+const FormField = forwardRef<HTMLInputElement, FormFieldProps>((props, ref) => {
+  const {
+    label,
+    placeholder,
+    type = 'text',
+    gridArea,
+    errors,
+    ...other
+  } = props
 
   return (
     <Box gridArea={gridArea}>
@@ -32,9 +34,9 @@ const FormField = forwardRef<HTMLInputElement, FormFieldProps>((props, ref) => {
         >
           {label}
         </Box>
-        {props.errors && (
+        {errors && (
           <Text aria-live="polite" color="inputError" fontSize="0.75rem" mb={2}>
-            {errorMessage}
+            {errors.message}
           </Text>
         )}
       </Flex>

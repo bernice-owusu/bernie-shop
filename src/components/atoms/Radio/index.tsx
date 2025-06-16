@@ -1,6 +1,10 @@
 import { Box, Center, useRadio, UseRadioProps } from '@chakra-ui/react'
+import { ReactNode } from 'react'
 
-const Radio: React.FC<UseRadioProps> = (props): JSX.Element => {
+interface CustomRadioProps extends UseRadioProps {
+  children?: ReactNode
+}
+const Radio: React.FC<CustomRadioProps> = (props): JSX.Element => {
   const { getInputProps, getLabelProps } = useRadio(props)
 
   const input = getInputProps()

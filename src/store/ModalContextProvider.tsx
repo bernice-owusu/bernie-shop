@@ -1,4 +1,4 @@
-import { createContext, useEffect, useContext } from 'react'
+import { createContext, useEffect, useContext, ReactNode } from 'react'
 import { useDisclosure } from '@chakra-ui/react'
 
 type ContextProps = {
@@ -25,7 +25,13 @@ export const useModal = (): ContextProps => {
   return useContext(ModalContext)
 }
 
-const ModalContextProvider: React.FC = ({ children }): JSX.Element => {
+interface ModalContextProviderProps {
+  children: ReactNode
+}
+
+const ModalContextProvider: React.FC<ModalContextProviderProps> = ({
+  children,
+}): JSX.Element => {
   const {
     isOpen: isCartModalOpen,
     onOpen: onCartModalOpen,
